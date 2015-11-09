@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02/11/2015 06:22:46 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidades.Reparaciones" table="reparaciones" catalog="bdreparaciones" optimistic-lock="version">
+        <id name="idReparaciones" type="java.lang.Integer">
+            <column name="idReparaciones" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="vehiculo" class="entidades.Vehiculo" fetch="select">
+            <column name="Vehiculo_idVehiculo" not-null="true" />
+        </many-to-one>
+        <property name="matricula" type="string">
+            <column name="matricula" length="45" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="45" />
+        </property>
+        <property name="fechaEntrada" type="date">
+            <column name="fechaEntrada" length="10" />
+        </property>
+        <property name="fechaSalida" type="date">
+            <column name="fechaSalida" length="10" />
+        </property>
+        <set name="detalleReparacions" table="detalle_reparacion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Reparaciones_idReparaciones" not-null="true" />
+            </key>
+            <one-to-many class="entidades.DetalleReparacion" />
+        </set>
+    </class>
+</hibernate-mapping>

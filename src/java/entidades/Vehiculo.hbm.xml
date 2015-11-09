@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02/11/2015 06:22:46 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidades.Vehiculo" table="vehiculo" catalog="bdreparaciones" optimistic-lock="version">
+        <id name="idVehiculo" type="java.lang.Integer">
+            <column name="idVehiculo" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="cliente" class="entidades.Cliente" fetch="select">
+            <column name="Cliente_idCliente" not-null="true" />
+        </many-to-one>
+        <property name="marca" type="string">
+            <column name="Marca" length="45" />
+        </property>
+        <property name="modelo" type="string">
+            <column name="modelo" length="45" />
+        </property>
+        <property name="color" type="string">
+            <column name="color" length="45" />
+        </property>
+        <property name="placa" type="string">
+            <column name="placa" length="10" />
+        </property>
+        <property name="km" type="java.lang.Double">
+            <column name="km" precision="22" scale="0" />
+        </property>
+        <set name="reparacioneses" table="reparaciones" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Vehiculo_idVehiculo" not-null="true" />
+            </key>
+            <one-to-many class="entidades.Reparaciones" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02/11/2015 06:22:46 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidades.DetalleReparacion" table="detalle_reparacion" catalog="bdreparaciones" optimistic-lock="version">
+        <id name="idDetalleReparacion" type="java.lang.Integer">
+            <column name="idDetalle_Reparacion" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="piezas" class="entidades.Piezas" fetch="select">
+            <column name="Piezas_idPiezas" not-null="true" />
+        </many-to-one>
+        <many-to-one name="reparaciones" class="entidades.Reparaciones" fetch="select">
+            <column name="Reparaciones_idReparaciones" not-null="true" />
+        </many-to-one>
+        <property name="unidades" type="java.lang.Integer">
+            <column name="unidades" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <h:outputStylesheet name="./css/estilos.css"/>
+        <title>Examen Parcial</title>
+    </h:head>
+
+    <h:body>
+
+
+        <div id="top" class="top">
+            <h1>Lenguaje de Programación III</h1>
+
+            <h3>Examen Parcial 3</h3>
+        </div>
+        <div>
+            <div id="left">
+                    <h:form>  
+                        <p:growl id="messages" showDetail="false"/>
+                 
+                        <p:menu>
+                            <p:submenu label="Cliente">
+                                <p:menuitem value="Clientes" url="/faces/clientes/index.xhtml" ajax="true" icon="fa fa-user" />
+                            </p:submenu>
+                            <p:submenu label="Vehículo">
+                                <p:menuitem value="Vehículos" actionListener="#{menuView.delete}" update="messages" ajax="false" icon="fa fa-automobile"/>
+                            </p:submenu>
+                            <p:submenu label="Reparaciones">
+                                <p:menuitem value="Reparaciones" actionListener="#{menuView.delete}" update="messages" ajax="false" icon="fa fa-wrench"/>
+                            </p:submenu>
+                            <p:submenu label="Piezas">
+                                <p:menuitem value="Piezas de Vehículo" actionListener="#{menuView.delete}" update="messages" ajax="false" icon="fa fa-steam"/>
+                            </p:submenu>
+
+                        </p:menu>
+
+                    </h:form>
+                    
+               
+            </div>
+            <div id="content" class="left_content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+        </div>
+    </h:body>
+
+</html>

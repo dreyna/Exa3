@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../base2.xhtml">
+
+            <ui:define name="content">
+                <h:form id="jonas">
+                    <p:commandButton value="Nuevo" onclick="PF('dlguardar').show();" />
+                </h:form>
+                <br></br>
+
+                <!-- DATATABLE-->
+                <h:form id="formMostrar">
+                    <p:dataTable var="per" value="#{clienteBeans.clientes}" emptyMessage="No hay clientes disponibless" paginator="true" rows="10" paginatorPosition="top"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}"  rowsPerPageTemplate="5,10,15,20,25,30,35,40">
+                        <p:column headerText="Id persona">
+                            <h:outputText value="#{per.idCliente}"/>
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{per.apellidos}"/>
+                        </p:column>
+                        <p:column headerText="Apellido">
+                            <h:outputText value="#{per.nombres}"/>
+                        </p:column>
+                        <p:column headerText="Accion">
+                            <p:commandButton value="Editar" onclick="PF('dlgmodificar').show();" update=":formModificar">
+                                <f:setPropertyActionListener target="#{clienteBeans.cliente}" value="#{per}"/>
+                            </p:commandButton>                   
+                        </p:column>                
+                        <p:column headerText="Accion">
+                            <p:commandButton value="Eliminar" onclick="PF('dlgeliminar').show();" >
+                                <f:setPropertyActionListener target="#{clienteBeans.cliente}" value="#{per}"/>
+                            </p:commandButton>                   
+                        </p:column>                
+                    </p:dataTable>            
+                </h:form>
+
+                <!--Formulario Registrar Cliente -->
+                <p:dialog id="dlg3" header="Registrar Cliente" showEffect="explode" hideEffect="bounce"
+                          widgetVar="dlguardar" modal="true" resizable="false" minWidth="200">
+                    <h:form id="formInsertar" onreset="">
+                        <p:panelGrid columns="2">                     
+                            <p:outputLabel value="Apellidos"/>
+                            <p:inputText value="#{clienteBeans.cliente.apellidos}" />                
+                            <p:outputLabel value="Nombres"/>
+                            <p:inputText value="#{clienteBeans.cliente.nombres}" />                            
+                            <p:commandButton actionListener="#{clienteBeans.agregarCliente()}" value="Guardar" update=":formMostrar" icon="fa fa-save" onclick="PF('dlguardar').hide();"/>
+                        </p:panelGrid>            
+                    </h:form>         
+                </p:dialog>
+
+                <!--Formulario Registrar Modificar -->
+                <p:dialog id="dlg" header="Modificar Cliente" showEffect="explode" hideEffect="bounce"
+                          widgetVar="dlgmodificar" modal="true" resizable="false" minWidth="200">
+                    <h:form id="formModificar">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Apellidos:"/>
+                            <p:inputText value="#{clienteBeans.cliente.apellidos}" />
+
+                            <p:outputLabel value="Nombres:"/>
+                            <p:inputText value="#{clienteBeans.cliente.nombres}" />
+                        </p:panelGrid>
+                        <p:commandButton actionListener="#{clienteBeans.modificarLCliente()}" value="Modificar Cliente" update=":formMostrar"
+                                         onclick="PF('dlgmodificar').hide();"/>
+                    </h:form>
+                </p:dialog>
+
+                <!--Mensaje de Confirmación Eliminar Cliente -->
+                <p:dialog id="dlg2" header="Eliminar Cliente" showEffect="explode" hideEffect="bounce"
+                          widgetVar="dlgeliminar" modal="true" resizable="false" minWidth="200">
+                    <h:form id="formEliminar">
+
+                        <p:outputLabel value="¿Desea eliminar a la cliente?" />
+
+                        <p:commandButton actionListener="#{clienteBeans.eliminarCliente()}" value="Si" update=":formMostrar"
+                                         onclick="PF('dlgeliminar').hide();"/>
+                        <p:commandButton  value="No" 
+                                          onclick="PF('dlg2').hide();"/>
+                    </h:form>
+                </p:dialog>
+
+                <!--Mensaje de Confirmación Modificar Cliente -->
+                <p:dialog id="dlg4" header="Modificar Cliente" showEffect="explode" hideEffect="bounce"
+                          widgetVar="dlgmodificar1" modal="true" resizable="false" minWidth="200">
+                    <h:form id="formModificar1">
+
+                        <p:outputLabel value="¿Desea Modificar a la cliente?" />
+
+                        <p:commandButton actionListener="#{clienteBeans.modificarLCliente()}" value="Si" update=":formMostrar"
+                                         onclick="PF('dlgmodificar1').hide();
+                                         PF('dlg3').hide();"/>
+                        <p:commandButton  value="No" 
+                                          onclick="PF('dlg2').hide();"/>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
